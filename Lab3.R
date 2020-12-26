@@ -1,23 +1,23 @@
 library(plotly)
 library(ggplot2)
 
-# данные
+# РґР°РЅРЅС‹Рµ
 a = -0.5
 b = 1.5
 c = 1
 To = 1.5
 
 v = -c
-q = -0.5 ## от -1 до 0
+q = -0.5 РѕС‚ - 1 РґРѕ 0
 
-# задаем x и t
+# Р·Р°РґР°РµРј С€Р°РіРё РґР»СЏ x Рё t
 M = 100
 h = (b-a)/M
 
 tau = q*h/v
 N = trunc(To/tau) + 1
 
-# задаем x и t
+# СЃРѕСЃС‚Р°РІР»СЏРµРј x Рё t
 x = seq(from = a, b + N, by = h)
 t = seq(0, To, by = tau)
 
@@ -29,7 +29,7 @@ fi = function (x,t){
   return (2*x + t*exp(-t))
 }
 
-# Точное решение
+# РўРѕС‡РЅРѕРµ СЂРµС€РµРЅРёРµ
 Ue = matrix(nrow = N-1, ncol = M - 1)
 for(n in 0:(N-1)) {
   for(m in 0:(M-1)) {
@@ -37,7 +37,7 @@ for(n in 0:(N-1)) {
   }
 }
 
-# Численное решение
+# Р§РёСЃР»РµРЅРЅРѕРµ СЂРµС€РµРЅРёРµ
 Ua = matrix(nrow = N-1, ncol = N+M)
 for(m in 1: (N + M - 1) ) {
   Ua[ 1, m ] = ksi(x[m])
@@ -54,8 +54,8 @@ for(n in 1:(N-1)) {
   }
 }
 
-# Строим график
+# РЎС‚СЂРѕРёРј РіСЂР°С„РёРє
 p <- plot_ly(x = ~x, y = ~t, z = ~Un, color = "red") %>%
-  add_surface(z = ~Un, opacity = 0.7, name = "Численное") %>%
-  add_surface(z = ~Ue, opacity = 1, name = "Точное") 
+  add_surface(z = ~Un, opacity = 0.7, name = "Г—ГЁГ±Г«ГҐГ­Г­Г®ГҐ") %>%
+  add_surface(z = ~Ue, opacity = 1, name = "Г’Г®Г·Г­Г®ГҐ") 
 p
